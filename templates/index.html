@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block column %}
+<div class="jumbotron">
+    <h1>Welcome to MyNetDisk!</h1>
+    <p>A crude net disk for storing temporary file.</p>
+</div>
+
+<button href="#login-modal" class="btn btn-primary" data-toggle="modal" id="loginModalBtn" style="float:left">Login</button>
+<button class="btn btn-primary" type="button" id="downloadBtn" style="float:right">Download</button>
+<button class="btn" type="button" id="removeBtn" style="float:right">Remove</button>
+<button href="#upload-modal" class="btn" data-toggle="modal" id="uploadModelBtn" style="float:right">Upload</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="totalCheckBox"/></th>
+            <th>ID</th>
+            <th>FileName</th>
+            <th>UpdateDate</th>
+            <th>DownloadTime</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for file in files %}
+        <tr>
+            <th><input type="checkbox" class="checkBox" id="checkBox_{{ loop.index }}"/></th>
+            <td>{{ file.id }}</td>
+            <td>{{ file.filename }}</td>
+            <td>{{ file.updateDate }}</td>
+            <td>{{ file.downloadTime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div id="login-modal" class="modal fade" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Login</h3>
+    </div>
+    
+    <div class="modal-body">
+        <form method='POST' id="loginForm">
+            <h4>Username</h4>
+            <input type="textarea" name="username" />
+            <h4>Password</h4>
+            <input type="password" name="password" />
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+         <button class="btn btn-primary" id="loginBtn">Login</button>
+    </div>
+    </div>
+    </div>
+</div>
+
+<div id="upload-modal" class="modal fade" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Upload</h3>
+    </div>
+    
+    <div class="modal-body">
+        <form enctype='multipart/form-data' method='POST' id="uploadForm">
+            <input type="file" name="file">
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+         <button class="btn btn-primary" id="uploadBtn">Upload</button>
+    </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for("static", filename="js/util.js") }}"></script>
+<script src="{{ url_for("static", filename="js/index.js") }}"></script>
+{% endblock %}

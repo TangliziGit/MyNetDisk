@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, user-scalable=no' />
+    <title>My Net Disk - {% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap.min.css") }}" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/base.css") }}" />
+    <script src="{{ url_for("static", filename="js/jquery-3.3.1.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-8 col-md-offset-2 column" id="column">
+                {% for messages in get_flashed_messages() %}
+                <div class="flash alert alert-warning">{{ messages }}</div>
+                {% endfor %}
+
+                {% block column %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {% block script %}{% endblock %}
+</body>
+</html>
